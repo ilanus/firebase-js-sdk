@@ -15,7 +15,7 @@
  */
 
 import { Query } from '../../../src/core/query';
-import {doc, filter, orderBy, path} from '../../util/helpers';
+import { doc, filter, orderBy, path } from '../../util/helpers';
 
 import { describeSpec, specTest } from './describe_spec';
 import { spec } from './spec_builder';
@@ -259,15 +259,15 @@ describeSpec(
 
         for (let j = 0; j < queriesPerStep; ++j) {
           const query = Query.atPath(path(collPath)).addFilter(
-              filter('val', '<=', j)
+            filter('val', '<=', j)
           );
           queries.push(query);
           steps = steps.userListens(query).watchAcks(query);
         }
 
         steps = steps
-            .watchSends({affects: queries}, matchingDoc)
-            .watchSnapshots(++currentVersion);
+          .watchSends({ affects: queries }, matchingDoc)
+          .watchSnapshots(++currentVersion);
 
         for (const query of queries) {
           steps = steps.expectEvents(query, {
